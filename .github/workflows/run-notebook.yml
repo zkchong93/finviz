@@ -1,8 +1,14 @@
-name: Run Jupyter Notebook (Tue–Sat 9AM MYT)
+name: Run Jupyter Notebook (Tue–Sat ~11AM SGT)
 
 on:
   schedule:
-    - cron: '0 1 * * 2-6'  # 1:00 AM UTC = 9:00 AM MYT, Tue-Sat
+    # Target: ~11:00 AM Singapore/KL time. Nominal trigger is set ~4h30m
+    # earlier (6:42 AM) because this workflow has been running consistently
+    # ~4h13m-4h50m late (observed: 9AM nominal -> 1:13-1:50PM actual).
+    # If the delay pattern shifts, adjust the hour below to compensate --
+    # this does not fix the delay itself, only aims around it.
+    - cron: '42 6 * * 2-6'
+      timezone: 'Asia/Singapore'
   workflow_dispatch:       # Optional: allows manual trigger
 
 permissions:
